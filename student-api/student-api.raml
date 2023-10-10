@@ -1,0 +1,47 @@
+#%RAML 1.0
+title: student-api
+description: "Providing all student details"
+version: v1
+protocols: [HTTP,HTTPS]
+mediaType: 
+- application/json
+uses:
+  lib: libraries/library.raml
+/student:
+  is: [lib.headers,lib.errorCodes]
+  get:
+    responses:
+      200:
+        body:
+          example: !include /example/response/selectAllStudentResponse.raml
+  post:
+    body:
+        example: !include /example/request/insertStudentRequest.raml
+        type: lib.insertStudent
+    responses:
+      201:
+        body:
+          example: !include /example/response/insertStudentResponse.raml
+  /{sid}:
+    is: [lib.headers,lib.errorCodes]
+    get:
+      responses:
+        200:
+          body:
+            example: !include /example/response/selectStudentByidResponse.raml
+    put:
+      body:
+        example: !include /example/request/updateStudentRequest.raml
+        type: lib.updateStudent
+      responses:
+        200:
+          body:
+            example: !include /example/response/updateStudentResponse.raml
+    delete:
+      responses:
+        200:
+          body:
+            example: !include /example/response/deleteStudentResponse.raml
+    
+    
+
